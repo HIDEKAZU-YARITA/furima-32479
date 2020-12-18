@@ -64,6 +64,11 @@ describe User do
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank")
       end
+      it "emailに@がないと登録できない" do
+        @user.email = 'ab'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
       it "emailの最初に@があると登録できない" do
         @user.email = '@ab'
         @user.valid?
@@ -83,9 +88,21 @@ describe User do
       end
       it "passwordが空では登録できない" do
         @user.password = ''
-        @user.password_confirmation = 'Abc12'
+        @user.password_confirmation = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Password can't be blank")
+      end
+      it "passwordが数字だけでは登録できない" do
+        @user.password = '123456'
+        @user.password_confirmation = '123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid.")
+      end
+      it "passwordが英字だけでは登録できない" do
+        @user.password = 'AbCdEf'
+        @user.password_confirmation = 'AbCdEf'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid.")
       end
       it "passwordが5文字以下であれば登録できない" do
         @user.password = 'Abc12'

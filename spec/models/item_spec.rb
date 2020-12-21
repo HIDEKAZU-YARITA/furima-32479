@@ -124,6 +124,12 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include('Price is out of range.')
         end
 
+        it '価格が全角であると保存できないこと' do
+          @item.price = '３００'
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Price is out of range.')
+        end
+
         it 'ユーザーが紐付いていないと保存できないこと' do
           @item.user = nil
           @item.valid?

@@ -9,9 +9,11 @@ class Item < ApplicationRecord
   has_one_attached :image
   belongs_to :user
 
-  validates :image,              presence: true
-  validates :name,               presence: true
-  validates :introduction,       presence: true
+  with_options presence: true do
+    validates :image
+    validates :name
+    validates :introduction
+  end
   validates :category_id,        numericality: { other_than: 0, message: 'must be selected.' }
   validates :condition_id,       numericality: { other_than: 0, message: 'must be selected.' }
   validates :charge_id,          numericality: { other_than: 0, message: 'must be selected.' }

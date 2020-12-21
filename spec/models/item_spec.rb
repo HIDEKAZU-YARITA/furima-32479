@@ -11,56 +11,6 @@ RSpec.describe Item, type: :model do
         it 'すべての項目が存在していれば保存できること' do
           expect(@item).to be_valid
         end
-
-        it '商品名が漢字・かな・カナであれば保存できること' do
-          @item.name = '漢字、かな、カナ。'
-          expect(@item).to be_valid
-        end
-
-        it '商品名が英字・数字・記号であれば保存できること' do
-          @item.name = 'item1234@,.'
-          expect(@item).to be_valid
-        end
-
-        it '商品の説明が漢字・かな・カナであれば保存できること' do
-          @item.introduction = '漢字、かな、カナ。'
-          expect(@item).to be_valid
-        end
-
-        it '商品の説明が英字・数字・記号であれば保存できること' do
-          @item.introduction = 'item1234@,.'
-          expect(@item).to be_valid
-        end
-
-        it 'カテゴリーIDが1以上10以下であれば保存できること' do
-          @item.category_id = 10
-          expect(@item).to be_valid
-        end
-
-        it '商品の状態IDが1以上6以下であれば保存できること' do
-          @item.condition_id = 6
-          expect(@item).to be_valid
-        end
-
-        it '配送料の負担IDが1以上2以下であれば保存できること' do
-          @item.charge_id = 2
-          expect(@item).to be_valid
-        end
-
-        it '発送元の地域IDが1以上47以下であれば保存できること' do
-          @item.prefecture_id = 47
-          expect(@item).to be_valid
-        end
-
-        it '発送までの日数IDが1以上3以下であれば保存できること' do
-          @item.preparation_day_id = 3
-          expect(@item).to be_valid
-        end
-
-        it '価格が300円以上9,999,999円以下であれば保存できること' do
-          @item.price = 1_000_000
-          expect(@item).to be_valid
-        end
       end
 
       context '商品登録がうまくいかないとき' do

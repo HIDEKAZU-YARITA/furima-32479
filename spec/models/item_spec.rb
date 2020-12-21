@@ -26,8 +26,20 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include("Name can't be blank")
         end
 
+        it '商品の説明がないと保存できないこと' do
+          @item.introduction = nil
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Introduction can't be blank")
+        end
+
         it 'カテゴリーIDがないと保存できないこと' do
           @item.category_id = nil
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Category must be selected.')
+        end
+
+        it 'カテゴリーIDが0のとき保存できないこと' do
+          @item.category_id = 0
           @item.valid?
           expect(@item.errors.full_messages).to include('Category must be selected.')
         end
@@ -38,8 +50,20 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include('Condition must be selected.')
         end
 
+        it '商品の状態IDが0のとき保存できないこと' do
+          @item.condition_id = 0
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Condition must be selected.')
+        end
+
         it '配送料の負担IDがないと保存できないこと' do
           @item.charge_id = nil
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Charge must be selected.')
+        end
+
+        it '配送料の負担IDが0のとき保存できないこと' do
+          @item.charge_id = 0
           @item.valid?
           expect(@item.errors.full_messages).to include('Charge must be selected.')
         end
@@ -50,8 +74,20 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include('Prefecture must be selected.')
         end
 
+        it '発送元の地域IDが0のとき保存できないこと' do
+          @item.prefecture_id = 0
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Prefecture must be selected.')
+        end
+
         it '発送までの日数IDがないと保存できないこと' do
           @item.preparation_day_id = nil
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Preparation day must be selected.')
+        end
+
+        it '発送までの日数IDが0のとき保存できないこと' do
+          @item.preparation_day_id = 0
           @item.valid?
           expect(@item.errors.full_messages).to include('Preparation day must be selected.')
         end

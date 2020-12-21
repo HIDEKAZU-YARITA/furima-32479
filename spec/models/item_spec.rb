@@ -116,6 +116,18 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include('Price is out of range.')
         end
 
+        it '価格が半角英数字であると保存できないこと' do
+          @item.price = 'abc123'
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Price is out of range.')
+        end
+
+        it '価格が半角英字であると保存できないこと' do
+          @item.price = 'abcdef'
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Price is out of range.')
+        end
+
         it 'ユーザーが紐付いていないと保存できないこと' do
           @item.user = nil
           @item.valid?

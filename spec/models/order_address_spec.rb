@@ -28,37 +28,37 @@ RSpec.describe OrderAddress, type: :model do
         it '郵便番号にハイフンが入力されてないと保存できないこと' do
           @order_address.post_number = '1000001'
           @order_address.valid?
-          expect(@order_address.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
+          expect(@order_address.errors.full_messages).to include('Post number is invalid. Include hyphen(-)')
         end
 
         it '郵便番号のハイフンが4番目に入力されてないと保存できないこと' do
           @order_address.post_number = '1000-001'
           @order_address.valid?
-          expect(@order_address.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
+          expect(@order_address.errors.full_messages).to include('Post number is invalid. Include hyphen(-)')
         end
 
         it '郵便番号のハイフンが4番目に入力されているが後半が4桁未満で入力されていると保存できないこと' do
           @order_address.post_number = '100-001'
           @order_address.valid?
-          expect(@order_address.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
+          expect(@order_address.errors.full_messages).to include('Post number is invalid. Include hyphen(-)')
         end
 
         it '郵便番号のハイフンが4番目に入力されているが後半が5桁以上で入力されていると保存できないこと' do
           @order_address.post_number = '100-00001'
           @order_address.valid?
-          expect(@order_address.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
+          expect(@order_address.errors.full_messages).to include('Post number is invalid. Include hyphen(-)')
         end
 
         it '郵便番号に全角文字が入力されていると保存できないこと' do
           @order_address.post_number = '１００−０００１'
           @order_address.valid?
-          expect(@order_address.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
+          expect(@order_address.errors.full_messages).to include('Post number is invalid. Include hyphen(-)')
         end
 
         it '都道府県が選択されていないと保存できないこと' do
           @order_address.prefecture_id = 0
           @order_address.valid?
-          expect(@order_address.errors.full_messages).to include("Prefecture must be selected.")
+          expect(@order_address.errors.full_messages).to include('Prefecture must be selected.')
         end
 
         it '市区町村が入力されていないと保存できないこと' do
@@ -82,25 +82,25 @@ RSpec.describe OrderAddress, type: :model do
         it '電話番号にハイフンが入力されていると保存できないこと' do
           @order_address.phone_number = '03-3333-3333'
           @order_address.valid?
-          expect(@order_address.errors.full_messages).to include("Phone number is invalid.")
+          expect(@order_address.errors.full_messages).to include('Phone number is invalid.')
         end
 
         it '電話番号が9桁以下で入力されていると保存できないこと' do
           @order_address.phone_number = '012345678'
           @order_address.valid?
-          expect(@order_address.errors.full_messages).to include("Phone number is invalid.")
+          expect(@order_address.errors.full_messages).to include('Phone number is invalid.')
         end
 
         it '電話番号が12桁以上で入力されていると保存できないこと' do
           @order_address.phone_number = '012345678901'
           @order_address.valid?
-          expect(@order_address.errors.full_messages).to include("Phone number is invalid.")
+          expect(@order_address.errors.full_messages).to include('Phone number is invalid.')
         end
 
         it '電話番号に全角文字が入力されていると保存できないこと' do
           @order_address.phone_number = '０１２３４５６７８９'
           @order_address.valid?
-          expect(@order_address.errors.full_messages).to include("Phone number is invalid.")
+          expect(@order_address.errors.full_messages).to include('Phone number is invalid.')
         end
         it 'トークンないと保存できないこと' do
           @order_address.token = nil

@@ -1,5 +1,4 @@
 class OrdersController < ApplicationController
-
   before_action :authenticate_user!, only: [:index]
   before_action :set_item, only: [:index, :create]
   before_action :move_to_index, only: [:index]
@@ -22,7 +21,8 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order_address).permit(:post_number, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id).merge(item_id: @item.id).merge(token: params[:token])
+    params.require(:order_address).permit(:post_number, :prefecture_id, :city, :house_number, :building_name,
+                                          :phone_number).merge(user_id: current_user.id).merge(item_id: @item.id).merge(token: params[:token])
   end
 
   def set_item
@@ -34,12 +34,11 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']  # 自身のPAY.JPテスト秘密鍵を記述しましょう
     Payjp::Charge.create(
       amount: @item.price,           # 商品の値段
       card: order_params[:token],    # カードトークン
       currency: 'jpy'                # 通貨の種類（日本円）
     )
   end
-
 end

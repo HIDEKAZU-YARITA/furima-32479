@@ -25,4 +25,12 @@ class Item < ApplicationRecord
     validates :prefecture_id
     validates :preparation_day_id
   end
+
+  def self.search(keyword)
+		if keyword != ""
+			Item.where('name LIKE(?)', "%#{search}%").or(Item.where('introduction LIKE(?)', "%#{search}%")).order('created_at DESC')
+		else
+			Item.all.order('created_at DESC')
+		end
+	end
 end

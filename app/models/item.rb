@@ -26,8 +26,8 @@ class Item < ApplicationRecord
     validates :preparation_day_id
   end
 
-  def self.search(keyword)
-    if keyword != ''
+  def self.search(search)
+    if search != ''
       Item.where('name LIKE(?)', "%#{search}%").or(Item.where('introduction LIKE(?)', "%#{search}%")).order('created_at DESC')
     else
       Item.all.order('created_at DESC')

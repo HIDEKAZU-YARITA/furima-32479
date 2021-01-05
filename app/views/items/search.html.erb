@@ -1,0 +1,70 @@
+<%= render "shared/header" %>
+
+<div class='main'>
+  <%# 商品一覧 %>
+  <div class='item-contents'>
+    <%# <h2 class='title'>ピックアップカテゴリー</h2> %>
+    <h2 class='title'>検索結果</h2>
+    <% if @keyword.empty? %>
+    <h3 class='item-name'>キーワードの指定がありません</h3>
+    <% else%>
+    <h3 class='item-name'>キーワード：<%= @keyword %></h3>
+    <% end %>
+    <%= link_to '新規投稿商品', new_item_path, class: "subtitle" %>
+    <ul class='item-lists'>
+    <% unless @items.empty? %>
+      <% @items.each do |item| %>
+      <li class='list'>
+        <%= link_to( item_path(item), method: :get ) do %>
+        <div class='item-img-content'>
+          <%= image_tag item.image, class: "item-img" if item.image.attached? %>
+          <% if Order.where(item_id: item.id).exists? %>
+          <div class='sold-out'>
+            <span>Sold Out!!</span>
+          </div>
+          <% end %>
+        </div>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            <%= item.name %>
+          </h3>
+          <div class='item-price'>
+            <span><%= item.price %>円<br><%= item.charge.name %></span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </li>
+      <% end %>
+    <% else %>
+      <li class='list'>
+        <%= link_to '#' do %>
+        <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            該当商品はありません
+          </h3>
+          <div class='item-price'>
+            <span>プライスレス<br>(笑)</span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+  <%# /商品一覧 %>
+</div>
+
+<%= link_to(new_item_path, method: :get, class: 'purchase-btn') do %>
+  <span class='purchase-btn-text'>出品する</span>
+  <%= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
+<% end %>
+<%= render "shared/footer" %>

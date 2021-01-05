@@ -30,5 +30,4 @@ class User < ApplicationRecord
     clean_up_passwords
     result
   end
-  
 end

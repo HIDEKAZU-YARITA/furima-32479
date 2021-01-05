@@ -1,0 +1,47 @@
+<%= render "shared/second-header"%>
+
+<div class="item-show">
+  <div class="item-box">
+    <h2 class='form-header-text'>
+      会員情報
+    </h2>
+    <table class="detail-table">
+      <tbody>
+        <tr>
+          <th class="detail-item">ニックネーム</th>
+          <td class="detail-value"><%= @user.nickname %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">電子メール</th>
+          <td class="detail-value"><%= @user.email %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">性</th>
+          <td class="detail-value"><%= @user.last_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">名</th>
+          <td class="detail-value"><%= @user.first_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">姓(カナ)</th>
+          <td class="detail-value"><%= @user.last_name_kana %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">名(カナ)</th>
+          <td class="detail-value"><%= @user.first_name_kana %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">生年月日</th>
+          <td class="detail-value"><%= @user.birthday.strftime('%Y年%-m月%-d日') %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <%= link_to '編集する', edit_user_registration_path(current_user), method: :get, class: "item-red-btn" %>
+  <p class='or-text'>or</p>
+  <%= link_to '戻る', :back, class:'item-destroy' %>
+</div>
+
+<%= render "shared/second-footer"%>
